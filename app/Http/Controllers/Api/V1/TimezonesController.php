@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Storecity_codesRequest;
-use App\Http\Requests\Updatecity_codesRequest;
-use App\Models\city_codes;
+use App\Http\Requests\StoretimezonesRequest;
+use App\Http\Requests\UpdatetimezonesRequest;
+use App\Models\timezones;
+use App\Http\Controllers\Controller;
 
-class CityCodesController extends Controller
+class TimezonesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class CityCodesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Storecity_codesRequest $request)
+    public function store(StoretimezonesRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class CityCodesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(city_codes $city_codes)
+    public function show(timezones $timezones)
     {
         //
     }
@@ -43,7 +44,7 @@ class CityCodesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(city_codes $city_codes)
+    public function edit(timezones $timezones)
     {
         //
     }
@@ -51,7 +52,7 @@ class CityCodesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updatecity_codesRequest $request, city_codes $city_codes)
+    public function update(UpdatetimezonesRequest $request, timezones $timezones)
     {
         //
     }
@@ -59,7 +60,7 @@ class CityCodesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(city_codes $city_codes)
+    public function destroy(timezones $timezones)
     {
         //
     }

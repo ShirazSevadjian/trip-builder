@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('country_codes', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Unique ID
+            $table->string('code'); // Country Code, ex: 'CA'
+            $table->string('name'); // Country Name, ex: 'Canada'
             $table->timestamps();
         });
     }

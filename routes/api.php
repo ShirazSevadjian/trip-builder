@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Add a prefix to the api route to specify the api version.
+// In this case it will be 'api/v1/...'
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
+    Route::apiResource('airlines', AirlineController::class);
+    Route::apiResource('flights', FlightController::class);
+});

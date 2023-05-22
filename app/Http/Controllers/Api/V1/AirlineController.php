@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreAirportRequest;
-use App\Http\Requests\UpdateAirportRequest;
-use App\Models\Airport;
+use App\Http\Requests\StoreAirlineRequest;
+use App\Http\Requests\UpdateAirlineRequest;
+use App\Models\Airline;
+use App\Http\Controllers\Controller;
 
-class AirportController extends Controller
+class AirlineController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $data = Airline::get();
+
+        return view('airlines-list', compact('data'));
     }
 
     /**
@@ -27,7 +30,7 @@ class AirportController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAirportRequest $request)
+    public function store(StoreAirlineRequest $request)
     {
         //
     }
@@ -35,7 +38,7 @@ class AirportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Airport $airport)
+    public function show(Airline $airline)
     {
         //
     }
@@ -43,7 +46,7 @@ class AirportController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Airport $airport)
+    public function edit(Airline $airline)
     {
         //
     }
@@ -51,7 +54,7 @@ class AirportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAirportRequest $request, Airport $airport)
+    public function update(UpdateAirlineRequest $request, Airline $airline)
     {
         //
     }
@@ -59,7 +62,7 @@ class AirportController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Airport $airport)
+    public function destroy(Airline $airline)
     {
         //
     }

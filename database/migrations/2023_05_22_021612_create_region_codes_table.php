@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('region_codes', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Unique ID
+            $table->string('code'); // Region Code, ex: 'QC' (AKA State/Province)
+            $table->string('name'); // Region Name, ex: 'Quebec'
             $table->timestamps();
         });
     }

@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('timezones', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Unique ID
+            $table->string('name'); // Timezone name, ex: 'America/Montreal'
+            $table->integer('offset'); // Timezone offset (UTC/GMT), ex: '-4'
             $table->timestamps();
         });
     }

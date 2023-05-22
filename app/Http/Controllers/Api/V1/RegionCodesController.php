@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoreAirlineRequest;
-use App\Http\Requests\UpdateAirlineRequest;
-use App\Models\Airline;
+use App\Http\Requests\Storeregion_codesRequest;
+use App\Http\Requests\Updateregion_codesRequest;
+use App\Models\region_codes;
+use App\Http\Controllers\Controller;
 
-class AirlineController extends Controller
+class RegionCodesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class AirlineController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAirlineRequest $request)
+    public function store(Storeregion_codesRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class AirlineController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Airline $airline)
+    public function show(region_codes $region_codes)
     {
         //
     }
@@ -43,7 +44,7 @@ class AirlineController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Airline $airline)
+    public function edit(region_codes $region_codes)
     {
         //
     }
@@ -51,7 +52,7 @@ class AirlineController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAirlineRequest $request, Airline $airline)
+    public function update(Updateregion_codesRequest $request, region_codes $region_codes)
     {
         //
     }
@@ -59,7 +60,7 @@ class AirlineController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Airline $airline)
+    public function destroy(region_codes $region_codes)
     {
         //
     }

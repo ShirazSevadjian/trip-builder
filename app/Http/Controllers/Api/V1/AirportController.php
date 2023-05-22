@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\StoretimezonesRequest;
-use App\Http\Requests\UpdatetimezonesRequest;
-use App\Models\timezones;
+use App\Http\Requests\StoreAirportRequest;
+use App\Http\Requests\UpdateAirportRequest;
+use App\Models\Airport;
+use App\Http\Controllers\Controller;
 
-class TimezonesController extends Controller
+class AirportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class TimezonesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoretimezonesRequest $request)
+    public function store(StoreAirportRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class TimezonesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(timezones $timezones)
+    public function show(Airport $airport)
     {
         //
     }
@@ -43,7 +44,7 @@ class TimezonesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(timezones $timezones)
+    public function edit(Airport $airport)
     {
         //
     }
@@ -51,7 +52,7 @@ class TimezonesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatetimezonesRequest $request, timezones $timezones)
+    public function update(UpdateAirportRequest $request, Airport $airport)
     {
         //
     }
@@ -59,7 +60,7 @@ class TimezonesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(timezones $timezones)
+    public function destroy(Airport $airport)
     {
         //
     }

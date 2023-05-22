@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Storeregion_codesRequest;
-use App\Http\Requests\Updateregion_codesRequest;
-use App\Models\region_codes;
+use App\Http\Requests\Storecountry_codesRequest;
+use App\Http\Requests\Updatecountry_codesRequest;
+use App\Models\country_codes;
+use App\Http\Controllers\Controller;
 
-class RegionCodesController extends Controller
+class CountryCodesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,7 @@ class RegionCodesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Storeregion_codesRequest $request)
+    public function store(Storecountry_codesRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class RegionCodesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(region_codes $region_codes)
+    public function show(country_codes $country_codes)
     {
         //
     }
@@ -43,7 +44,7 @@ class RegionCodesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(region_codes $region_codes)
+    public function edit(country_codes $country_codes)
     {
         //
     }
@@ -51,7 +52,7 @@ class RegionCodesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Updateregion_codesRequest $request, region_codes $region_codes)
+    public function update(Updatecountry_codesRequest $request, country_codes $country_codes)
     {
         //
     }
@@ -59,7 +60,7 @@ class RegionCodesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(region_codes $region_codes)
+    public function destroy(country_codes $country_codes)
     {
         //
     }

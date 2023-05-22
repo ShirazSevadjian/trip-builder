@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('city_codes', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Unique ID
+            $table->string('code'); // City code, ex: 'YMQ'
+            $table->string('city_name'); // City name, ex: 'Montreal'
             $table->timestamps();
         });
     }
