@@ -9,6 +9,19 @@ class Airport extends Model
 {
     use HasFactory;
 
+    protected $table = 'airports';
+
+    protected $fillable = [
+        'iata',
+        'name',
+        'city_code',
+        'country_code',
+        'region_code',
+        'latitude',
+        'longitude',
+        'timezone'
+    ];
+
     // Airport has a city code
     public function cityCode(): HasOne {
         return $this->hasOne(CityCodes::class);

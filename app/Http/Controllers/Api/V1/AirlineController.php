@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAirlineRequest;
 use App\Http\Requests\UpdateAirlineRequest;
 use App\Models\Airline;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AirlineController extends Controller
 {
@@ -14,9 +15,16 @@ class AirlineController extends Controller
      */
     public function index()
     {
-        $data = Airline::get();
+        $data = Airline::all();
 
-        return view('airlines-list', compact('data'));
+        if($data->count() > 0){
+            return response()->json([
+                $data
+            ], 200);
+        }
+
+        // To add for front-end view
+        // return view('airlines', compact('data'));
     }
 
     /**
@@ -32,38 +40,141 @@ class AirlineController extends Controller
      */
     public function store(StoreAirlineRequest $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'iata' => 'required|string|max:3',
+            'name' => 'required|string|max:100'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 422,
+                'error' => $validator->messages()
+            ], 422); //Throw a 422 error (input error)
+        }
+        else {
+            $airline = Airline::create([
+                'iata' => $request->iata,
+                'name' => $request->name
+            ]);
+        }
+
+        if($airline){
+            return response()->json([
+                'status' => 200,
+                'response' => 'Airline successfully added!'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 500,
+                'response' => '[Failed] Airline was not added.'
+            ], 500);
+        }
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Airline $airline)
+    public function show($airline)
     {
-        //
+        $value = Airline::find($airline);
+
+        if($value){
+            return response()->json([
+                'status' => 200,
+                'airline' => $value
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'response' => 'Airline with id ' . $airline . ' was not found!'
+            ], 404);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Airline $airline)
+    public function edit($airline)
     {
-        //
+        $value = Airline::find($airline);
+
+        if($value){
+            return response()->json([
+                'status' => 200,
+                'airline' => $value
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'response' => 'Airline with id ' . $airline . ' was not found!'
+            ], 404);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAirlineRequest $request, Airline $airline)
+    public function update(UpdateAirlineRequest $request, int $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'iata' => 'required|string|max:3',
+            'name' => 'required|string|max:100'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => 422,
+                'error' => $validator->messages()
+            ], 422); //Throw a 422 error (input error)
+        }
+        else {
+            $airline = Airline::find($id);
+
+            if($airline){
+                $airline->update([
+                    'iata' => $request->iata,
+                    'name' => $request->name
+                ]);
+
+                return response()->json([
+                    'status' => 200,
+                    'response' => 'Airline successfully updated!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => 500,
+                    'response' => '[Failed] Airline was not updated.'
+                ], 500);
+            }
+            
+        }            
+       
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Airline $airline)
+    public function destroy($id)
     {
-        //
+        $airline = Airline::find($id);
+
+        if($airline){
+
+            $airline->delete();
+
+            return response()->json([
+                'status' => 200,
+                'response' => 'Airline with id ' . $id . ' was successfully deleted.'
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'status' => 404,
+                'response' => 'Airline with id ' . $id . ' was not found!'
+            ], 404);
+        }
     }
 }

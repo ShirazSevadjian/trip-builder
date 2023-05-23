@@ -9,6 +9,14 @@ class TimeZone extends Model
 {
     use HasFactory;
 
+    protected $table = 'timezones';
+
+    protected $fillable = [
+        'name',
+        'offset'
+    ];
+
+
     // Timezone belongs to the airport
     public function airport(): BelongsTo {
         return $this->belongsTo(Airport::class);

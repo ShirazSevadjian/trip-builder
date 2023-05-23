@@ -9,10 +9,16 @@ class Airline extends Model
 {
     use HasFactory;
 
+    protected $table = 'airlines';
+
+    protected $fillable = [
+        'iata',
+        'name'
+    ];
 
     public function flights() {
         return $this->hasMany(Flight::class);
     }
+
+
 }
-
-

@@ -7,11 +7,17 @@
     <title>Airlines</title>
 
     @livewireStyles
-
+    @vite('resources/css/app.css')
 </head>
 <body>
-    
+
+    <div class="px-6 py-20 text-center">
+        <h1 class="text-5xl font-bold">Airlines</h1>
+    </div>
+
+    {{-- Load a table of all the airlines --}}
     @livewire('airlines-list')
+
 
     @livewireScripts
 </body>

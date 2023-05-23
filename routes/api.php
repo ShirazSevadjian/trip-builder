@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\V1\AirlineController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Add a prefix to the api route to specify the api version.
 // In this case it will be 'api/v1/...'
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
-    Route::apiResource('airlines', AirlineController::class);
-    Route::apiResource('flights', FlightController::class);
+
+    // Airline
+    Route::get('airlines', [AirlineController::class, 'index']); // Show all airlines
+    Route::get('airlines/{id}', [AirlineController::class, 'show']); // Show specific airline with ID
+    Route::get('airlines/{id}/edit', [AirlineController::class, 'edit']); // Edit specific airline with ID
+    Route::put('airlines/{id}/edit', [AirlineController::class, 'update']); // Update specific airline with ID
+    Route::delete('airlines/{id}/delete', [AirlineController::class, 'destroy']); // Delete specific airline with ID
+    Route::post('airlines', [AirlineController::class, 'store']); // Store or add new airline 
+    
+    
+
 });

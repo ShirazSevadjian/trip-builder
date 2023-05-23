@@ -9,6 +9,18 @@ class Flight extends Model
 {
     use HasFactory;
 
+    protected $table = 'flights';
+
+    protected $fillable = [
+        'airline',
+        'number',
+        'departure_airport',
+        'departure_time',
+        'arrival_airport',
+        'arrival_time',
+        'price'
+    ];
+
     // Flight belongs to an airline
     public function airline() {
         return $this->belongsTo(Airline::class);
