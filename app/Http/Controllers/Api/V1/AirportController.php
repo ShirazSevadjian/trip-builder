@@ -6,6 +6,8 @@ use App\Http\Requests\StoreAirportRequest;
 use App\Http\Requests\UpdateAirportRequest;
 use App\Models\Airport;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
 
 class AirportController extends Controller
 {
