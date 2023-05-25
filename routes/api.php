@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\CountryCodesController;
 use App\Http\Controllers\Api\V1\FlightController;
 use App\Http\Controllers\Api\V1\RegionCodesController;
 use App\Http\Controllers\Api\V1\TimezonesController;
+use App\Http\Controllers\Api\V1\FlightFinderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,4 +92,11 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::put('timezones/{id}/edit', [TimezonesController::class, 'update']); // Update specific timezone with ID
     Route::delete('timezones/{id}/delete', [TimezonesController::class, 'destroy']); // Delete specific timezone with ID
     Route::post('timezones', [TimezonesController::class, 'store']); // Store or add new timezone 
+
+
+    // ---------- Find Flight Query ----------
+    Route::post('findflight', [FlightFinderController::class, 'findFlight']); // Store or add new timezone
+
+
+
 });
