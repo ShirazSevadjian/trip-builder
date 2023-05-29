@@ -11,7 +11,7 @@ class Storecity_codesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
