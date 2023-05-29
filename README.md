@@ -56,10 +56,13 @@ Trip builder is an API, created using the Laravel Framework and PHP, that allows
 ## Sample API Request / Response
 
 [GET] http://trip-builder.test/api/v1/airlines/ -> Returns all the airlines
+
 [GET] http://trip-builder.test/api/v1/airlines/5 -> Returns airline with ID=5
+
 [DEL] http://trip-builder.test/api/v1/airlines/300/delete -> Deletes airline with ID=300
 
 [POST] http://trip-builder.test/api/v1/airlines/ -> Adds a new airline
+
 [PUT] http://trip-builder.test/api/v1/airlines/10/edit -> Edits & Updates airline with ID=10 with new values
 
 ```
@@ -70,7 +73,9 @@ Trip builder is an API, created using the Laravel Framework and PHP, that allows
 ```
 
 The same oprations can also be done with:
+
 http://trip-builder.test/api/v1/[INPUT]
+
 by replacing the [INPUT] field with the following
 
 - 'airlines'
@@ -82,7 +87,9 @@ by replacing the [INPUT] field with the following
 - 'timezones'
 
 **To search for flights:**
+
 [POST] http://trip-builder.test/api/v1/findflight
+
 Example body:
 
 ```
