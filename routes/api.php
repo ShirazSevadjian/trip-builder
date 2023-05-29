@@ -95,7 +95,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
 
 
     // ---------- Find Flight Query ----------
-    Route::post('findflight', [FlightFinderController::class, 'findFlight']); // Search for flight
+    Route::post('PUT', [FlightFinderController::class, 'findFlight']); // Search for flight
 
 
 
