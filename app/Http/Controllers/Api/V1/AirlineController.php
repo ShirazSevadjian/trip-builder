@@ -7,13 +7,14 @@ use App\Http\Requests\UpdateAirlineRequest;
 use App\Models\Airline;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class AirlineController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($format = 'view')
     {
         $data = Airline::all();
 
@@ -23,8 +24,7 @@ class AirlineController extends Controller
             ], 200);
         }
 
-        // To add for front-end view
-        // return view('airlines', compact('data'));
+        
     }
 
     /**

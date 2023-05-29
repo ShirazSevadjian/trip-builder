@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\StoreFlightFinderRequest;
 use App\Http\Requests\UpdateFlightFinderRequest;
 use App\Models\FlightFinder;
+use App\Models\Flight;
+use App\Models\Airport;
+use App\Models\Airline;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
@@ -85,7 +89,7 @@ class FlightFinderController extends Controller
             'arrival_airport' => 'required|string|max:5',
             'departure_date' => 'string|max:10', // Not required
             'arrival_date' => 'string|max:10', // Not required
-            'trip_type' => 'string|max:30' // Will only accept 'round-trip' or 'one-way'
+            'trip_type' => 'required|string|in:one-way,round-trip' // Will only accept 'round-trip' or 'one-way'
         ]);
 
         if($validator->fails()){
@@ -99,16 +103,40 @@ class FlightFinderController extends Controller
 
             switch ($request->trip_type) {
                 case 'round-trip':
-                    $response = DB::table('flights')
-                                ->join('airlines', 'flights.airline', '=', 'airlines.id')
-                                ->join('airports', 'flights.departure_airport', '=', 'airports.id')
-                                ->join('airports', 'flights.arrival_airport', '=', 'airports.id')
-                                ->select()
+                    $departure_airport_id = Airport::select('id')->where('iata', '=', $request->departure_airport)->value('id');
+                    $arrival_airport_id = Airport::select('id')->where('iata', '=', $request->arrival_airport)->value('id');
+                    
+                    $flight_from_to = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                                ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                                ->where('departure_airport', '=', strval($departure_airport_id))
+                                ->where('arrival_airport', '=', strval($arrival_airport_id))
                                 ->get();
+
+                    $flight_to_from = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                                ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                                ->where('departure_airport', '=', strval($arrival_airport_id))
+                                ->where('arrival_airport', '=', strval($departure_airport_id))
+                                ->get();
+
+                    $flights = $flight_from_to->toBase()->merge($flight_to_from);
+                    $total_price = $flight_from_to->value('price') + $flight_to_from->value('price');
+
+                    $response = $flights;
 
                     break;
                 case 'one-way':
-                    # code...
+                    $departure_airport_id = Airport::select('id')->where('iata', '=', $request->departure_airport)->value('id');
+                    $arrival_airport_id = Airport::select('id')->where('iata', '=', $request->arrival_airport)->value('id');
+                    
+                    $flights = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                                ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                                ->where('departure_airport', '=', strval($departure_airport_id))
+                                ->where('arrival_airport', '=', strval($arrival_airport_id))
+                                ->get();
+
+                    $total_price = $flights->value('price');
+                    
+                    $response = $flights;
                     break;
                 default:
                     return response()->json([
@@ -119,15 +147,16 @@ class FlightFinderController extends Controller
             }
         }
 
-        if($airline){
+        if($response){
             return response()->json([
                 'status' => 200,
-                'response' => 'Airline successfully added!'
+                'flight(s)' => $response,
+                'totalPrice' => $total_price
             ], 200);
         } else {
             return response()->json([
                 'status' => 500,
-                'response' => '[Failed] Airline was not added.'
+                'response' => 'No Flights were found'
             ], 500);
         }
     }

@@ -14,6 +14,8 @@
     {{-- Load Navbar --}}
     @livewire('navbar')
 
+    {{-- Load Header --}}
+    @livewire('header')
 
     @livewireScripts
 
