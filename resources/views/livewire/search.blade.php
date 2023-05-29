@@ -56,7 +56,7 @@
                                 <div class="w-full mt-0 mr-auto mb-4 ml-auto">
                                     <label class="block text-sm font-medium text-gray-700">Departure Date</label>
                                     <div class="mt-1 mr-0 mb-0 ml-0">
-                                        <input name="departure_date" placeholder="Ex: 14-06-2023" type="text"
+                                        <input name="departure_date" placeholder="Ex: 2023-06-14" type="text"
                                             class="border focus:ring-indigo-500
                                 focus:border-indigo-500 sm:text-sm w-full block h-10 border-gray-300 shadow-sm rounded-md px-3" />
                                     </div>
@@ -64,7 +64,7 @@
                                 <div class="w-full mt-0 mr-auto mb-4 ml-auto">
                                     <label class="block text-sm font-medium text-gray-700">Arrival Date</label>
                                     <div class="mt-1 mr-0 mb-0 ml-0">
-                                        <input name="arrival_date" placeholder="Ex: 24-06-2023" type="text"
+                                        <input name="arrival_date" placeholder="Ex: 2023-06-24" type="text"
                                             class="border focus:ring-indigo-500
                                 focus:border-indigo-500 sm:text-sm w-full block h-10 border-gray-300 shadow-sm rounded-md px-3" />
                                     </div>
@@ -96,11 +96,14 @@
     </div>
 
     <div>
-        @if (empty($response->items))
-            <h2
-                class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-gray-900 md:text-2xl lg:text-3xl dark:text-black">
-                No flights were found!</h2>
-        @endif
+
+        <h2
+            class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-center text-gray-900 md:text-2xl lg:text-3xl dark:text-black">
+            @if (empty($response->items) && isset($response))
+                No flights were found!
+            @endif
+        </h2>
+
     </div>
 
     {{-- Table to show the relevant data --}}

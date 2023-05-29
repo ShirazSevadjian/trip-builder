@@ -33,25 +33,43 @@ class FlightFinderController extends Controller
         $departure_date = $request->departure_date;
         $arrival_date = $request->arrival_date;
         $trip_type = $request->trip_type;
-
-        
         
         switch ($trip_type) {
             case 'round-trip':
                 $departure_airport_id = Airport::select('id')->where('iata', '=', $departure_airport)->value('id');
                 $arrival_airport_id = Airport::select('id')->where('iata', '=', $arrival_airport)->value('id');
                 
-                $flight_from_to = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                if(empty($departure_date) || empty($arrival_date)){
+                    $flight_from_to = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
                             ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
                             ->where('departure_airport', '=', strval($departure_airport_id))
                             ->where('arrival_airport', '=', strval($arrival_airport_id))
                             ->get();
 
-                $flight_to_from = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                    $flight_to_from = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
                             ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
                             ->where('departure_airport', '=', strval($arrival_airport_id))
                             ->where('arrival_airport', '=', strval($departure_airport_id))
                             ->get();
+
+                }
+                else {
+                    $flight_from_to = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                            ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                            ->where('departure_airport', '=', strval($departure_airport_id))
+                            ->where('arrival_airport', '=', strval($arrival_airport_id))
+                            ->whereDate('departure_time', '=', $departure_date)
+                            ->whereDate('arrival_time', '=', $arrival_date)
+                            ->get();
+
+                    $flight_to_from = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                            ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                            ->where('departure_airport', '=', strval($arrival_airport_id))
+                            ->where('arrival_airport', '=', strval($departure_airport_id))
+                            ->whereDate('departure_time', '=', $departure_date)
+                            ->whereDate('arrival_time', '=', $arrival_date)
+                            ->get();
+                }
 
                 $flights = $flight_from_to->toBase()->merge($flight_to_from);
                 $total_price = $flight_from_to->value('price') + $flight_to_from->value('price');
@@ -65,11 +83,24 @@ class FlightFinderController extends Controller
                 $departure_airport_id = Airport::select('id')->where('iata', '=', $departure_airport)->value('id');
                 $arrival_airport_id = Airport::select('id')->where('iata', '=', $arrival_airport)->value('id');
                 
-                $flights = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                if(empty($departure_date) || empty($arrival_date)){
+                    $flights = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
                             ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
                             ->where('departure_airport', '=', strval($departure_airport_id))
                             ->where('arrival_airport', '=', strval($arrival_airport_id))
                             ->get();
+                }
+                else {
+                    $flights = Flight::join('airlines', 'flights.airline', '=', 'airlines.id')
+                            ->select('airlines.iata', 'number', 'departure_airport', 'departure_time', 'arrival_airport', 'arrival_time', 'price')
+                            ->where('departure_airport', '=', strval($departure_airport_id))
+                            ->where('arrival_airport', '=', strval($arrival_airport_id))
+                            ->whereDate('departure_time', '=', $departure_date)
+                            ->whereDate('arrival_time', '=', $arrival_date)
+                            ->get();
+                }
+
+                
 
                 $total_price = $flights->value('price');
                 
